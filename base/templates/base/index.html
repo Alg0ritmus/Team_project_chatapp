@@ -1,0 +1,84 @@
+<!-- chat/templates/chat/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
+</head>
+<body>
+    <div>
+        <input type="email" id="email_" value="testing_chat_urs2@adresa.com"><br>
+        <input type="password" id="password_" value="testing_chat_urs2">
+        <input type="submit" value="Done" id="done_">
+    </div>
+    <br>
+
+    <h1>Room's IDs</h1>
+    {% for r in rooms %}
+    {{r}}<br>
+    {% endfor %}
+    <br>
+    What chat room would you like to enter?<br>
+    <input id="room-name-input" type="text" size="100"><br>
+    <input id="room-name-submit" type="button" value="Enter">
+
+    <script>
+        document.querySelector('#done_').onclick = function(e){
+            em_  = document.querySelector('#email_').value;
+            pass_ = document.querySelector('#password_').value;
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "text/plain");
+            
+            var raw = JSON.stringify({
+            "password": pass_,
+            "email": em_
+            });
+            
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+            
+            fetch("https://teamprojecttuke.pythonanywhere.com/api/login/", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+
+                var data = JSON.parse(result);
+                console.log(data.idToken)
+                localStorage.setItem("idToken", data.idToken);
+                localStorage.setItem("uuid", data.localId);
+            })
+            .catch(error => console.log('error', error));
+            };
+
+    </script>
+
+
+
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+    </script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
