@@ -98,7 +98,7 @@ def create_chat_room(request):
             roomid=Chat_room.objects.filter(chat_room_users=usr1).filter(chat_room_users=usr2)[0]
 
             
-            return redirect({"SimulatedStatus":200,"roomId":roomid.pk})
+            return Response({"SimulatedStatus":200,"roomId":roomid.pk})
         # if not, create room and redirect
         chat1 = Chat_room.objects.create()
         chat1.chat_room_users.add(usr1)
@@ -106,7 +106,7 @@ def create_chat_room(request):
     except Exception as e:
         return Response({"SimulatedStatus":500,"Error:":str(e)})
 
-    return redirect({"SimulatedStatus":200,"roomId":roomid.pk})
+    return Response({"SimulatedStatus":200,"roomId":roomid.pk})
 
 
 # Chat_room delete (Get)
