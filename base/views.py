@@ -95,7 +95,7 @@ def create_chat_room(request):
     try:
         # if chat room exists, then redirect to chat room,
         if Chat_room.objects.filter(chat_room_users=usr1).filter(chat_room_users=usr2).exists() == True:
-            roomid=Chat_room.objects.filter(chat_room_users=usr1).filter(chat_room_users=usr2)
+            roomid=Chat_room.objects.filter(chat_room_users=usr1).filter(chat_room_users=usr2)[0]
 
             
             return redirect({"SimulatedStatus":200,"roomId":roomid.pk})
