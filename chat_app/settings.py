@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-(v*yi1&3=bfimbqky65^kb-+1$%%_gk_4o+li1bk21_l8&x@c3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',"https://teamprojectchatapp-production.up.railway.app/"]
+ALLOWED_HOSTS = ['*',"https://teamprojectchatapp-production.up.railway.app/","teamprojectchatapp-production.up.railway.app"]
 
 
 # Application definition
